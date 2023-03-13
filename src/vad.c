@@ -86,14 +86,14 @@ VAD_STATE vad(VAD_DATA *vad_data, float *x) {
 
   Features f = compute_features(x, vad_data->frame_length);
   vad_data->last_feature = f.p; /* save feature, in case you want to show */
-
+  //automata
   switch (vad_data->state) {
-  case ST_INIT:
-    vad_data->state = ST_SILENCE;
+  case ST_INIT: //estat inicial
+    vad_data->state = ST_SILENCE; 
     break;
 
   case ST_SILENCE:
-    if (f.p > 0.95)
+    if (f.p > 0.95)//f.p es la potencia
       vad_data->state = ST_VOICE;
     break;
 

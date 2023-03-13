@@ -62,7 +62,7 @@ int main(int argc, char *argv[]) {
       return -1;
     }
   }
-
+  //automata
   vad_data = vad_open(sf_info.samplerate);
   /* Allocate memory for buffers */
   frame_size   = vad_frame_size(vad_data);
@@ -80,15 +80,17 @@ int main(int argc, char *argv[]) {
     if (sndfile_out != 0) {
       /* TODO: copy all the samples into sndfile_out */
     }
-
+    //estado del automata
     state = vad(vad_data, buffer);
     if (verbose & DEBUG_VAD) vad_show_state(vad_data, stdout);
 
     /* TODO: print only SILENCE and VOICE labels */
     /* As it is, it prints UNDEF segments but is should be merge to the proper value */
+    //silenci a veu o a inversa
     if (state != last_state) {
-      if (t != last_t)
+      if (t != last_t){
         fprintf(vadfile, "%.5f\t%.5f\t%s\n", last_t * frame_duration, t * frame_duration, state2str(last_state));
+      }
       last_state = state;
       last_t = t;
     }
