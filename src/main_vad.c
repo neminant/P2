@@ -5,6 +5,7 @@
 
 #include "vad.h"
 #include "vad_docopt.h"
+#include "pav_analysis.h"
 
 #define DEBUG_VAD 0x1
 
