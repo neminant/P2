@@ -4,6 +4,7 @@
 
 #include "pav_analysis.h"
 #include "vad.h"
+#include "pav_analysis.h"
 
 const float FRAME_TIME = 10.0F; /* in ms. */
 
@@ -11,6 +12,7 @@ const float FRAME_TIME = 10.0F; /* in ms. */
  * As the output state is only ST_VOICE, ST_SILENCE, or ST_UNDEF,
  * only this labels are needed. You need to add all labels, in case
  * you want to print the internal state in string format
+ * Hola, aixo es una prova
  */
 
 const char *state_str[] = {
@@ -43,7 +45,7 @@ Features compute_features(const float *x, int N) {
    * For the moment, compute random value between 0 and 1 
    */
   Features feat;
-  feat.p = compute_power(x,N);
+  feat.am = feat.p = feat.zcr = compute_power(x,N);
   //feat.zcr = feat.p = feat.am = (float) rand()/RAND_MAX;
   return feat;
 }
@@ -95,12 +97,12 @@ VAD_STATE vad(VAD_DATA *vad_data, float *x) {
     break;
 
   case ST_SILENCE:
-    if (f.p > -40) //f.p és la potencia, aquest casos diuen si detecta veu o soroll
+    if (f.p > -40) //f.p és la potencia, aquest casos diuen si detecta veu o soroll , 0.95 als casos dels altres informes
       vad_data->state = ST_VOICE;
     break;
 
   case ST_VOICE:
-    if (f.p < -40)
+    if (f.p < -40) //0.01 al cas de altres informes
       vad_data->state = ST_SILENCE;
     break;
 
