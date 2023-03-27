@@ -5,7 +5,6 @@
 
 #include "vad.h"
 #include "vad_docopt.h"
-#include "pav_analysis.h"
 
 #define DEBUG_VAD 0x1
 
@@ -33,6 +32,7 @@ int main(int argc, char *argv[]) {
   input_wav  = args.input_wav;
   output_vad = args.output_vad;
   output_wav = args.output_wav;
+  float alfa0= atof(args.alfa0);
 
   if (input_wav == 0 || output_vad == 0) {
     fprintf(stderr, "%s\n", args.usage_pattern);
@@ -40,7 +40,8 @@ int main(int argc, char *argv[]) {
   }
 
   /* Open input sound file */
-  if ((sndfile_in = sf_open(input_wav, SFM_READ, &sf_info)) == 0) {
+  if ((sndfile_in = sf_open(input_wav, SFM_READ, &sf_info)) == 0 &&
+      (sndfile_in = sf_open(input_wav, SFM_READ, &sf_info)) == 0) {
     fprintf(stderr, "Error opening input file %s (%s)\n", input_wav, strerror(errno));
     return -1;
   }
@@ -63,8 +64,8 @@ int main(int argc, char *argv[]) {
       return -1;
     }
   }
-  //automata
-  vad_data = vad_open(sf_info.samplerate);
+
+  vad_data = vad_open(sf_info.samplerate, alfa0);
   /* Allocate memory for buffers */
   frame_size   = vad_frame_size(vad_data);
   buffer       = (float *) malloc(frame_size * sizeof(float));
@@ -80,24 +81,27 @@ int main(int argc, char *argv[]) {
 
     if (sndfile_out != 0) {
       /* TODO: copy all the samples into sndfile_out */
+      sf_writef_float(sndfile_out, buffer, frame_size);
     }
-    //estado del automata
+
     state = vad(vad_data, buffer);
     if (verbose & DEBUG_VAD) vad_show_state(vad_data, stdout);
 
     /* TODO: print only SILENCE and VOICE labels */
     /* As it is, it prints UNDEF segments but is should be merge to the proper value */
-    //silenci a veu o a inversa
-    if (state != last_state && last_state != ST_UNDEF) {
+    if (state != last_state) { 
       if (t != last_t){
-        fprintf(vadfile, "%.5f\t%.5f\t%s\n", last_t * frame_duration, t * frame_duration, state2str(last_state));
+        fprintf(vadfile, "%.5f\t%.5f\t%s\n", last_t * frame_duration, t * frame_duration, state2str(last_state)); //escribe en el fichero el inicio, el final y el estado, sea silencio o voz
       }
       last_state = state;
       last_t = t;
     }
 
-    if (sndfile_out != 0) {
+    if (state==ST_SILENCE && sndfile_out != 0) {
       /* TODO: go back and write zeros in silence segments */
+      sf_seek(sndfile_out, -frame_size, SEEK_CUR);
+      sf_write_float(sndfile_out, buffer_zeros, frame_size); //Escrivim zeros
+      last_state= state;
     }
   }
 
