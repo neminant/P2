@@ -7,10 +7,8 @@
 
 
 """Usage: docopt_c.py [options] [<docopt>]
-
 Processes a docopt formatted string, from either stdin or a file, and
 outputs the equivalent C code to parse a CLI, to either the stdout or a file.
-
 Options:
   -o, --output-name=<outname>
                 Filename used to write the produced C file.
@@ -18,10 +16,8 @@ Options:
   -t, --template=<template>
                 Filename used to read a C template.
   -h,--help     Show this help message and exit.
-
 Arguments:
   <docopt>      Input file describing your CLI in docopt language.
-
 """
 
 

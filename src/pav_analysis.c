@@ -1,39 +1,72 @@
 #include <math.h>
 #include "pav_analysis.h"
 
-
-float hamming_window(int n, int m){
-    return (float) 0.54 -0.46*cos((2*M_PI*n)/(m-1));
-}
-float compute_power(const float *x, unsigned int N) {
-    float pot= 1e-12;// 1e-12 evita infinits
-    for(unsigned int i=0; i<N; i++)
+float compute_power(const float *x, unsigned int N)
+{
+    int n = 0;
+    float suma = 0;
+    for (n = 0; n < N - 1; n++)
     {
-        pot+= x[i]*x[i];
+        suma = suma + (x[n]) * (x[n]);
     }
-    return (10*log10(pot/N)); //retorna en decibels
+    return (10 * (log10(suma / N)));
 }
 
-float compute_am(const float *x, unsigned int N) {
-    int i;
-    float sum=0;
-    float res=0;
-    for (i=0; i<N-1; i++){
-        sum=fabs(sum+x[i]);
+float compute_am(const float *x, unsigned int N)
+{
+    int n;
+    float suma = 0;
+    for (n = 0; n < N - 1; n++)
+    {
+        suma = suma + fabs(x[n]);
     }
-    res=sum/N;
-    return res;
+    return (suma / N);
 }
 
-float compute_zcr(const float *x, unsigned int N, float fm) {
-    int contador = 0;
-    float zcr = 0;
-    for (unsigned int n = 1 ; n < N ; n++){
-        if ((x[n] * x[n-1]) < 0){ 
-            contador++;
+float compute_zcr(const float *x, unsigned int N, float fm)
+{
+    int n;
+    float cont = 0;
+    for (n = 1; n < N - 1; n++)
+    {
+        if (x[n] * x[n - 1] <= 0)
+        { //cuando la multiplicación da negativa son de signo contrario.
+            cont++;
         }
     }
-    zcr = fm/(2.0*(N-1.0))*contador;
 
-    return zcr;
+    return (fm * cont) / (2 * (N - 1));
+}
+
+float compute_power_hamming(const float *x, float fm)
+{
+    float Tdesp = 0.010;
+    float Tlong = 0.020;
+    float a = 0.53836, b = 0.46164, pi = 3.1415926535,w1 =0, f1=0;
+    int N = fm * Tlong, M = Tdesp * fm;
+    float w[N], v[N], f[N], p[N]; /* w[N] =  Ventana de hamming al cuadrado ; v[N] = Ventana de hamming ; 
+    f[N] = (Xi[n]*v[n])^2; p[N] funcion resultante */
+    int i, n;
+    for (i = 0; i < M; i++)
+    {
+
+        for (n = 0; n < N - 1; n++)
+        {
+            float coseno = cos(2 * pi * n / (N-1));
+            v[n] = (a - b * coseno);
+            w[n] = v[n] * v[n]; /* Ventana de hamming al cuadrado */
+            f[n] = x[i * M + n]  * x[i * M + n] * w[n];
+        }
+        for (n = 0; n < N - 1; n++)
+        {
+            
+            w1 = w1 + w[n];
+            f1 = f1 + f[n];
+        }
+
+
+        p[i] = 10 * log10(f1 /w1 );
+    }
+
+    return *p;
 }

@@ -1,12 +1,10 @@
 #!/usr/bin/python3 -B
 
 """Pythonic command-line interface parser that will make you smile.
-
  * http://docopt.org
  * Repository and issue-tracker: https://github.com/docopt/docopt
  * Licensed under terms of MIT license (see LICENSE-MIT)
  * Copyright (c) 2013 Vladimir Keleshev, vladimir@keleshev.com
-
 """
 import sys
 import re
@@ -73,10 +71,8 @@ class Pattern(object):
 
 def transform(pattern):
     """Expand pattern into an (almost) equivalent one, but with single Either.
-
     Example: ((-a | -b) (-c | -d)) => (-a -c | -a -d | -b -c | -b -d)
     Quirks: [-a] => (-a), (-a...) => (-a -a)
-
     """
     result = []
     groups = [[pattern]]
@@ -429,12 +425,10 @@ def parse_atom(tokens, options):
 
 def parse_argv(tokens, options, options_first=False):
     """Parse command-line argument vector.
-
     If options_first:
         argv ::= [ long | shorts ]* [ argument ]* [ '--' [ argument ]* ] ;
     else:
         argv ::= [ long | shorts | argument ]* [ '--' [ argument ]* ] ;
-
     """
     parsed = []
     while tokens.current() is not None:
@@ -491,12 +485,10 @@ class Dict(dict):
 
 def docopt(doc, argv=None, help=True, version=None, options_first=False):
     """Parse `argv` based on command-line interface described in `doc`.
-
     `docopt` creates your command-line interface based on its
     description that you pass as `doc`. Such description can contain
     --options, <positional-argument>, commands, which could be
     [optional], (required), (mutually | exclusive) or repeated...
-
     Parameters
     ----------
     doc : str
@@ -513,14 +505,12 @@ def docopt(doc, argv=None, help=True, version=None, options_first=False):
     options_first : bool (default: False)
         Set to True to require options precede positional arguments,
         i.e. to forbid options and positional arguments intermix.
-
     Returns
     -------
     args : dict
         A dictionary, where keys are names of command-line elements
         such as e.g. "--verbose" and "<path>", and values are the
         parsed values of those elements.
-
     Example
     -------
     >>> from docopt import docopt
@@ -544,13 +534,11 @@ def docopt(doc, argv=None, help=True, version=None, options_first=False):
      '<port>': '80',
      'serial': False,
      'tcp': True}
-
     See also
     --------
     * For video introduction see http://docopt.org
     * Full documentation is available in README.rst as well as online
       at https://github.com/docopt/docopt#readme
-
     """
     argv = sys.argv[1:] if argv is None else argv
 

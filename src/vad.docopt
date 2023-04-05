@@ -6,10 +6,14 @@ Usage:
    vad --version
 
 Options:
-   -i FILE, --input-wav=FILE   WAVE file for voice activity detection
+   -i FILE, --input-wav=FILE  WAVE file for voice activity detection
    -o FILE, --output-vad=FILE  Label file with the result of VAD
    -w FILE, --output-wav=FILE  WAVE file with silences cleared
-   -0 FLOAT, --alfa0=FLOAT  Valor del llindar a determinar [default: 10]
+   -N INT, --number-init=INT  Number of init frames [default: 15]
+   -f FLOAT, --alpha1=FLOAT  Parameter alpha1 [default: 3]
+   -s FLOAT, --alpha2=FLOAT  Parameter alpha2 [default: 10]
+   -a INT, --frames_mv=INT  Frames of Maybe Voice [default: 10]
+   -b INT, --frames_ms=INT  Frames of Maybe Silence [default: 10]
    -v, --verbose  Show debug information
    -h, --help     Show this screen
    --version      Show the version of the project
