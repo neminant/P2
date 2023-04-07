@@ -183,11 +183,19 @@ La captura corresponde al audio que utilizamos en la practica 1. La primera graf
 - Si ha desarrollado el algoritmo para la cancelación de los segmentos de silencio, inserte una gráfica en
   la que se vea con claridad la señal antes y después de la cancelación (puede que `wavesurfer` no sea la
   mejor opción para esto, ya que no es capaz de visualizar varias señales al mismo tiempo).
+  
+  ![image](https://user-images.githubusercontent.com/125289603/230649703-63e88cd8-3b51-4a7f-83fb-d9c70e5b6aa5.png)
+  ![image](https://user-images.githubusercontent.com/125289603/230650078-582bac76-72ac-492d-84e2-de2f6e2010b7.png)
+  En esta segunda imagen se puede apreciar que los segmantos de ruido mayoritariamente se ponen a cero.
+  
+
 
 #### Gestión de las opciones del programa usando `docopt_c`
 
 - Si ha usado `docopt_c` para realizar la gestión de las opciones y argumentos del programa `vad`, inserte
   una captura de pantalla en la que se vea el mensaje de ayuda del programa.
+  
+  ![image](https://user-images.githubusercontent.com/125289603/230650393-8ba546c8-a247-4ca1-bda2-e787befd3723.png)
 
 
 ### Contribuciones adicionales y/o comentarios acerca de la práctica
