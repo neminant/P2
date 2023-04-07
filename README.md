@@ -135,14 +135,16 @@ Ejercicios
 - Etiquete manualmente los segmentos de voz y silencio del fichero grabado al efecto. Inserte, a 
   continuación, una captura de `wavesurfer` en la que se vea con claridad la señal temporal, el contorno de
   potencia y la tasa de cruces por cero, junto con el etiquetado manual de los segmentos.
-
+![image](https://user-images.githubusercontent.com/125289603/230646313-00300e11-ad60-4c0c-8717-8a6796fb1023.png)
+La captura corresponde al audio que utilizamos en la practica 1. La primera grafica muestra el waveform, la segunda muestra la tasa de cruces por cero, la tercera muestra la potencia y la última es la transcripción manual de los segmentos.
 
 - A la vista de la gráfica, indique qué valores considera adecuados para las magnitudes siguientes:
 
 	* Incremento del nivel potencia en dB, respecto al nivel correspondiente al silencio inicial, para
 	  estar seguros de que un segmento de señal se corresponde con voz.
 
-	Tal y como podemos observar en el contorno de la potencia, vemos que el nivel de silencio en media es de aproximadamente 20 dB y el nivel de voz aproximado es de 40 db. Así pues, tenemos un incremento de 20dB.
+	Tal y como podemos observar en el contorno de la potencia, vemos que el nivel de silencio en media es de aproximadamente 20 dB y el nivel de voz aproximado es
+	de 40 db. Así pues, tenemos un incremento de 20dB.
 	
 	* Duración mínima razonable de los segmentos de voz y silencio.
 
@@ -151,7 +153,8 @@ Ejercicios
 
 	* ¿Es capaz de sacar alguna conclusión a partir de la evolución de la tasa de cruces por cero?
 
-	La tasa de cruces por cero nos indica la sordidad de la voz(consonantes sordas), cuanta más sordidad más cruces por cero tendrá. Detección de un tramo de voz (tasa muy baja) y de silencio (una tasa de cruces por cero media).
+	La tasa de cruces por cero nos indica la sordidad de la voz(consonantes sordas), cuanta más sordidad más cruces por cero tendrá. Detección de un tramo de voz 
+	(tasa muy baja) y de silencio (una tasa de cruces por cero media).
 
 ### Desarrollo del detector de actividad vocal
 
@@ -161,18 +164,17 @@ Ejercicios
 - Inserte una gráfica en la que se vea con claridad la señal temporal, el etiquetado manual y la detección
   automática conseguida para el fichero grabado al efecto. 
 
-etiquetado_manual_y_deteccion_automatica.png
+![image](https://user-images.githubusercontent.com/125289603/230647425-e6552baa-94f7-46fc-9642-7a96bc87b7d0.png)
 
 - Explique, si existen. las discrepancias entre el etiquetado manual y la detección automática.
 
-discrepancias.png
+![image](https://user-images.githubusercontent.com/125289603/230647547-0771e4dc-6326-4bd2-83a0-fadfbbd1a3e8.png)
 
 - Evalúe los resultados sobre la base de datos `db.v4` con el script `vad_evaluation.pl` e inserte a 
   continuación las tasas de sensibilidad (*recall*) y precisión para el conjunto de la base de datos (sólo
   el resumen).
 
-sumary.png
-
+![image](https://user-images.githubusercontent.com/125289603/230647718-38f403fa-de09-4ded-9ab5-4b7664978f7f.png)
 
 ### Trabajos de ampliación
 
