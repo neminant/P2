@@ -36,8 +36,8 @@ int main(int argc, char *argv[])
   output_wav = args.output_wav;
 
   number_init = atoi(args.number_init);
-  alpha1 = atof(args.alpha1);
-  alpha2 = atof(args.alpha2);
+  alpha1 = atof(args.alpha1+3); // hem anat provant i el 3 millora la efectivitat
+  alpha2 = atof(args.alpha2+3);
   frames_mv = atoi(args.frames_mv);
   frames_ms = atoi(args.frames_ms);
 
